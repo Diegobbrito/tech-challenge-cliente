@@ -20,7 +20,7 @@ public class Email {
             this.valor = email;
         }
         else{
-            throw new EmailInvalidoException("Email inválido");
+            throw new EmailInvalidoException("Email inválido.");
         }
     }
 

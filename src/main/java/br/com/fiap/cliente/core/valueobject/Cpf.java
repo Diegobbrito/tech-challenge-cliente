@@ -10,7 +10,7 @@ public class Cpf {
     public Cpf(String valor) {
         final String cpf = obterNumerosDoCpf(valor);
         if(!validaCpf(cpf)){
-            throw new CpfInvalidoException("Cpf inválido");
+            throw new CpfInvalidoException("Cpf inválido.");
         }
         this.valor = cpf;
     }
