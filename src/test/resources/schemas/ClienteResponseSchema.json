@@ -1,0 +1,14 @@
+{
+  "title": "Cliente Response",
+  "type": "object",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {"type": "integer"},
+      "nome": {"type": "string"},
+      "email": {"type": "string"},
+      "cpf": {"type": "string"}
+    },
+    "required": ["id", "nome", "email", "cpf"]
+  }
+}
