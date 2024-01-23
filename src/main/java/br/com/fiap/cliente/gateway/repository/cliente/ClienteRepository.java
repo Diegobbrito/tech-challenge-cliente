@@ -42,7 +42,7 @@ public class ClienteRepository implements IClienteRepository {
     public Cliente buscarClientePorCpf(String cpf) {
         final var cliente = repository
                 .findByCpf(cpf)
-                .orElseThrow(() -> new ClienteInexistenteException("Cliente não entrado"));
+                .orElseThrow(() -> new ClienteInexistenteException("Cliente não entrado."));
         return ClienteAdapter.toCliente(cliente);
     }
 }

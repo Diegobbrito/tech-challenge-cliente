@@ -8,6 +8,7 @@ import br.com.fiap.cliente.core.usecase.cliente.ICriarCliente;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,6 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity<ClienteResponse> cadastrar(@RequestBody ClienteRequest request){
         final var response = criarClienteUseCase.criar(request);
-        final var uri = URI.create("/clientes/" + response.cpf());
-        return ResponseEntity.created(uri).body(response);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }
