@@ -33,6 +33,7 @@ public class RestExceptionHandler {
         final var details = new ExceptionDetails(ex.getMessage());
         return ResponseEntity.badRequest().body(details);
     }
+    @ExceptionHandler
     public ResponseEntity<ExceptionDetails> handlerClienteCadastradoException(ClienteCadastradoException ex){
         final var details = new ExceptionDetails(ex.getMessage());
         return ResponseEntity.badRequest().body(details);
