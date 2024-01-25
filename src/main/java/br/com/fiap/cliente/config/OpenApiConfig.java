@@ -22,7 +22,7 @@ public class OpenApiConfig {
         return new OpenAPI().info(new Info()
                 .title("Lanchonete POSTECH")
                 .version("1.0")
-                .description("API de cadastro de clientes e gerenciamento de pedidos."))
+                .description("API de cadastro e gerenciamento de clientes."))
                 .addSecurityItem(new SecurityRequirement().
                         addList("Bearer Authentication"))
                 .components(new Components().addSecuritySchemes
