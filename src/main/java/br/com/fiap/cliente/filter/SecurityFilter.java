@@ -1,6 +1,6 @@
 package br.com.fiap.cliente.filter;
 
-import br.com.fiap.lanchonete.security.JwtService;
+import br.com.fiap.cliente.security.JwtService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

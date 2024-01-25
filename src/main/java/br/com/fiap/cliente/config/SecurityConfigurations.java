@@ -1,7 +1,7 @@
 package br.com.fiap.cliente.config;
 
 import br.com.fiap.cliente.filter.SecurityFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,14 +15,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SecurityConfigurations {
-
-    @Autowired
-    private SecurityFilter securityFilter;
+    private final SecurityFilter securityFilter;
     private static final String[] AUTH_WHITELIST = {
             "/v3/api-docs/**",
             "/swagger-ui/**"
     };
 
+    public SecurityConfigurations(SecurityFilter securityFilter) {
+        this.securityFilter = securityFilter;
+    }
+
+    @ConditionalOnProperty(name = "cliente.security.jwt.enable", havingValue = "true")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
@@ -33,6 +36,17 @@ public class SecurityConfigurations {
                     auth.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+
+    @ConditionalOnProperty(name = "cliente.security.jwt.enable", havingValue = "false")
+    @Bean
+    public SecurityFilterChain securityFilterChainDisabled(HttpSecurity http) throws Exception {
+        return http.csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth ->{
+                    auth.anyRequest().permitAll();
+                })
                 .build();
     }
 

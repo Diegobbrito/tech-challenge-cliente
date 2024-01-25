@@ -1,4 +1,4 @@
-package br.com.fiap.lanchonete.security;
+package br.com.fiap.cliente.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
