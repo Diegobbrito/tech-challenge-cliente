@@ -6,9 +6,9 @@ import br.com.fiap.cliente.core.valueobject.Email;
 public class Cliente {
 
     private Integer id;
-    private Cpf cpf;
-    private Email email;
-    private String nome;
+    private final Cpf cpf;
+    private final Email email;
+    private final String nome;
 
     public Cliente(String cpf, String nome, String email) {
         this.cpf = new Cpf(cpf);
