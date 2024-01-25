@@ -2,31 +2,25 @@ package br.com.fiap.cliente.core.valueobject;
 
 import br.com.fiap.cliente.core.exception.EmailInvalidoException;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Email {
-    private String valor;
+    private final String valor;
 
-    private static final String EMAIL_PATTERN =
-            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
-                    + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+    private static final String EMAIL_PATTERN = "^(.+)@(\\S+)$";
 
     private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
 
 
     public Email(String email) {
-        if(validarEmail(email)){
-            this.valor = email;
-        }
-        else{
+        if(isEmailInvalido(email)){
             throw new EmailInvalidoException("Email inválido.");
         }
+        this.valor = email;
     }
 
-    public static boolean validarEmail(String email){
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+    public static boolean isEmailInvalido(String email){
+        return !pattern.matcher(email).matches();
     }
 
     public String getValor() {
