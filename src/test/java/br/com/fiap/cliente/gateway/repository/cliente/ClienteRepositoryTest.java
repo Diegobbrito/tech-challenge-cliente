@@ -53,12 +53,12 @@ class ClienteRepositoryTest {
                     "diego.teste@teste.com");
             cliente.setId(1);
             var clientesMock = new ClienteEntity(cliente);
-            when(jpaRepository.findAll()).thenReturn(List.of(clientesMock));
+            when(jpaRepository.findAllByActiveIsTrue()).thenReturn(List.of(clientesMock));
             // Act
             var clienteResponse = clienteRepository.buscarTodos();
             // Assert
             verify(jpaRepository, times(1))
-                    .findAll();
+                    .findAllByActiveIsTrue();
             assertThat(clienteResponse)
                     .isInstanceOf(List.class)
                     .isNotNull();
