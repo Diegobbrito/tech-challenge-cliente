@@ -21,7 +21,7 @@ public class DefinicaoPassos {
 
     @Quando("requisitar o registro de um novo cliente com email invalido")
     public void requisitarRegistroDeNovoClienteComEmailInvalido() {
-        var clienteRequest = new ClienteRequest("Diego","teste.com","15212027020");
+        var clienteRequest = new ClienteRequest("Diego","teste.com","002.546.450-70");
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(clienteRequest)
@@ -35,7 +35,7 @@ public class DefinicaoPassos {
 
     @Quando("requisitar o registro de um novo cliente com cpf invalido")
     public void requisitarRegistroDeNovoClienteComCpfInvalido() {
-        var clienteRequest = new ClienteRequest("Diego","diego.teste@teste.com","00000000000");
+        var clienteRequest = new ClienteRequest("Teste","teste@teste.com","00000000000");
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(clienteRequest)
