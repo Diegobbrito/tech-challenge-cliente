@@ -8,7 +8,6 @@ import br.com.fiap.cliente.core.entity.Cliente;
 
 import br.com.fiap.cliente.core.exception.ClienteCadastradoException;
 import br.com.fiap.cliente.core.exception.ClienteInexistenteException;
-import br.com.fiap.cliente.core.exception.EmailInvalidoException;
 import br.com.fiap.cliente.core.valueobject.Cpf;
 import br.com.fiap.cliente.core.valueobject.Email;
 import org.junit.jupiter.api.AfterEach;
@@ -83,12 +82,12 @@ class ClienteRepositoryTest {
                     "diego.teste@teste.com");
             cliente.setId(1);
             var clientesMock = new ClienteEntity(cliente);
-            when(jpaRepository.findByCpf(anyString())).thenReturn(Optional.of(clientesMock));
+            when(jpaRepository.findByCpfAndActiveIsTrue(anyString())).thenReturn(Optional.of(clientesMock));
             // Act
             var clienteResponse = clienteRepository.buscarClientePorCpf("28655919055");
             // Assert
             verify(jpaRepository, times(1))
-                    .findByCpf(anyString());
+                    .findByCpfAndActiveIsTrue(anyString());
             assertThat(clienteResponse)
                     .isInstanceOf(Cliente.class)
                     .isNotNull();
@@ -106,13 +105,13 @@ class ClienteRepositoryTest {
         @Test
         void deveRetornarExcessaoAoBuscarClienteInexistente() {
             // Arrange
-            when(jpaRepository.findByCpf(anyString())).thenReturn(Optional.empty());
+            when(jpaRepository.findByCpfAndActiveIsTrue(anyString())).thenReturn(Optional.empty());
             // Act
             assertThatThrownBy(() -> clienteRepository.buscarClientePorCpf("28655919055"))
                     .isInstanceOf(ClienteInexistenteException.class)
                     .hasMessage("Cliente não entrado.");
             // Assert
-            verify(jpaRepository, times(1)).findByCpf(anyString());
+            verify(jpaRepository, times(1)).findByCpfAndActiveIsTrue(anyString());
         }
     }
 
@@ -124,12 +123,12 @@ class ClienteRepositoryTest {
             var cliente = new Cliente("15212027020","Diego","diego.teste@teste.com");
             cliente.setId(1);
             var clienteEntity = new ClienteEntity(cliente);
-            when(jpaRepository.findByCpf(anyString())).thenReturn(Optional.empty());
+            when(jpaRepository.findByCpfAndActiveIsTrue(anyString())).thenReturn(Optional.empty());
             when(jpaRepository.save(any(ClienteEntity.class))).thenReturn(clienteEntity);
             // Act
             var clienteSalvo = clienteRepository.salvar(cliente);
             // Assert
-            verify(jpaRepository, times(1)).findByCpf(anyString());
+            verify(jpaRepository, times(1)).findByCpfAndActiveIsTrue(anyString());
             verify(jpaRepository, times(1)).save(any(ClienteEntity.class));
             assertThat(clienteSalvo)
                     .isInstanceOf(Cliente.class)
@@ -154,13 +153,13 @@ class ClienteRepositoryTest {
             var cliente = new Cliente("15212027020","Diego","diego.teste@teste.com");
             cliente.setId(1);
             var clienteEntity = new ClienteEntity(cliente);
-            when(jpaRepository.findByCpf(anyString())).thenReturn(Optional.of(clienteEntity));
+            when(jpaRepository.findByCpfAndActiveIsTrue(anyString())).thenReturn(Optional.of(clienteEntity));
             // Act
             assertThatThrownBy(() -> clienteRepository.salvar(cliente))
                     .isInstanceOf(ClienteCadastradoException.class)
                     .hasMessage("Cliente já cadastrado.");
             // Assert
-            verify(jpaRepository, times(1)).findByCpf(anyString());
+            verify(jpaRepository, times(1)).findByCpfAndActiveIsTrue(anyString());
             verify(jpaRepository, times(0)).save(any(ClienteEntity.class));
         }
     }

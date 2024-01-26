@@ -21,14 +21,14 @@ public class ClienteRepository implements IClienteRepository {
 
     @Override
     public List<Cliente> buscarTodos() {
-        final var clientes = repository.findAll();
+        final var clientes = repository.findAllByActiveIsTrue();
         return clientes.stream().map(ClienteAdapter::toCliente).collect(Collectors.toList());
     }
 
     @Override
     public Cliente salvar(Cliente cliente) {
         final var checkCliente = repository
-                .findByCpf(cliente.getCpf().getValor());
+                .findByCpfAndActiveIsTrue(cliente.getCpf().getValor());
         if(checkCliente.isPresent()){
             throw new ClienteCadastradoException("Cliente já cadastrado.");
         }
@@ -41,7 +41,7 @@ public class ClienteRepository implements IClienteRepository {
     @Override
     public Cliente buscarClientePorCpf(String cpf) {
         final var cliente = repository
-                .findByCpf(cpf)
+                .findByCpfAndActiveIsTrue(cpf)
                 .orElseThrow(() -> new ClienteInexistenteException("Cliente não entrado."));
         return ClienteAdapter.toCliente(cliente);
     }
