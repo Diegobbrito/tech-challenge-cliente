@@ -1,0 +1,13 @@
+{
+  "title": "Clientes Response",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "nome": {"type": "string"},
+      "email": {"type": "string"},
+      "cpf": {"type": "string"}
+    },
+    "required": ["nome", "email", "cpf"]
+  }
+}
