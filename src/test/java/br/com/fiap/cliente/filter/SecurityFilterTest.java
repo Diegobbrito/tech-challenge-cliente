@@ -1,6 +1,6 @@
-package br.com.fiap.pagamento.filter;
+package br.com.fiap.cliente.filter;
 
-import br.com.fiap.pagamento.security.JwtService;
+import br.com.fiap.cliente.security.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.impl.DefaultClaims;
