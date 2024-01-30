@@ -1,4 +1,4 @@
-package br.com.fiap.produto.bdd;
+package br.com.fiap.cliente.bdd;
 
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
