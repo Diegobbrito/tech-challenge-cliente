@@ -38,6 +38,9 @@
 		<aspectj.version>1.9.19</aspectj.version>
 		<sonar.organization>diegobbrito</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.coverage.jacoco.xmlReportPaths>
+			target/jacoco-reports/jacoco.xml
+		</sonar.coverage.jacoco.xmlReportPaths>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -193,10 +196,7 @@
 
 	<profiles>
 		<profile>
-			<id>sonar-coverage</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
+			<id>coverage</id>
 			<build>
 				<plugins>
 					<plugin>
@@ -232,6 +232,9 @@
 								</configuration>
 							</execution>
 						</executions>
+						<configuration>
+							<outputDirectory>${project.build.directory}/jacoco-reports</outputDirectory>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
