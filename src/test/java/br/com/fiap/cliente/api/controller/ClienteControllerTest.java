@@ -22,7 +22,10 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -30,6 +33,9 @@ import br.com.fiap.cliente.core.usecase.cliente.IBuscarCliente;
 
 import java.util.List;
 
+@SpringBootTest
+@AutoConfigureMockMvc
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ClienteControllerTest {
     private MockMvc mockMvc;
 
@@ -49,10 +55,10 @@ class ClienteControllerTest {
         ClienteController mensagemController = new ClienteController(buscarClienteUseCase,criarClienteUseCase);
         mockMvc = MockMvcBuilders.standaloneSetup(mensagemController)
                 .setControllerAdvice(new RestExceptionHandler())
-                .addFilter((request, response, chain) -> {
-                    response.setCharacterEncoding("UTF-8");
-                    chain.doFilter(request, response);
-                }, "/*")
+//                .addFilter((request, response, chain) -> {
+//                    response.setCharacterEncoding("UTF-8");
+//                    chain.doFilter(request, response);
+//                }, "/*")
                 .build();
     }
 
