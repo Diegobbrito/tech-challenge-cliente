@@ -25,7 +25,6 @@ O Swagger está documentado com exemplos de request.
 Cria um cliente com cpf valido
 - POST /clientes
 
-A aplicação é iniciada com dados de categorias, produtos e status no banco de dados.
 ## Stack utilizada
 
 **Banco de dados:** Mysql
