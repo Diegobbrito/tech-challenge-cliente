@@ -104,7 +104,7 @@ class ClienteControllerTest {
         @Test
         void devePermitirRegistrarCliente() throws Exception {
 
-            var clienteRequest = new ClienteRequest("15212027020","Diego","diego.teste@teste.com");
+            var clienteRequest = new ClienteRequest("Diego","diego.teste@teste.com","15212027020");
             var clienteResponse = new ClienteResponse("15212027020","Diego","diego.teste@teste.com");
             when(criarClienteUseCase.criar(any(ClienteRequest.class)))
                     .thenReturn(clienteResponse);
