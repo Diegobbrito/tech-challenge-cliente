@@ -21,7 +21,10 @@ jobs:
 
       - name: Generate JaCoCo Badge
         id: jacoco
-        uses: cicirello/jacoco-badge-generator@v2.0.1
+        uses: cicirello/jacoco-badge-generator@v2
+        with:
+          jacocoReportPath: target/jacoco-reports/jacoco.xml
+          classCoverage: 80
       - name: Log coverage percentage
         run: |
           echo "coverage = ${{ steps.jacoco.outputs.coverage }}"
@@ -31,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: jacoco-report
-          path: target/site/jacoco/
+          path: target/jacoco-reports/jacoco.xml
 
   code-analisys:
     runs-on: ubuntu-latest
