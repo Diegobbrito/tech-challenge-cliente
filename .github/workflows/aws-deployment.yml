@@ -17,7 +17,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
 
-      - run: mvn test
+      - run: mvn test -Pcoverage
 
       - name: Generate JaCoCo Badge
         id: jacoco
