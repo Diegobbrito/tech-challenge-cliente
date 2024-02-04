@@ -83,3 +83,15 @@ jobs:
           echo "Pushing image to ECR..."
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+  marge-main:
+    runs-on: ubuntu-latest
+    needs: deploy-aws
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Merge changes to main
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+           github_token: ${{ secrets.GITHUB_TOKEN }}
+           force_orphan: true
+           commit_message: "Auto-merge changes after deployment"
