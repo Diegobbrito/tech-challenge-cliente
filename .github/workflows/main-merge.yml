@@ -3,13 +3,7 @@ name: Automated Merge
 on:
   workflow_run:
     workflows:
-      - "aws-deployment"
-    types:
-      - completed
-  pull_request_review:
-    types:
-      - submitted
-  check_suite:
+      - "deploy-aws"
     types:
       - completed
   status: {}
