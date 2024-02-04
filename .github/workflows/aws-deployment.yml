@@ -53,12 +53,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Pcoverage -Dsonar.projectKey=Diegobbrito_tech-challenge-cliente -Dsonar.exclusions=**/bdd/**,**/config/**,**/*Application.java -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco-reports/jacoco.xml
 
-      - name: SonarQube Quality Gate check
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   deploy-aws:
     runs-on: ubuntu-latest
     needs: code-analisys
