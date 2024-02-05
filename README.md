@@ -3,6 +3,9 @@
 Projeto desenvolvido para o Tech Challenge da Pos Tech FIAP+Alura.
 API de criação e gerenciamento de clientes
 
+## Video
+Gravamos um video sobre a nossa quarta parte do projeto:
+- https://youtu.be/MrVDanTUrKI
 
 ## Link da projeto no SonarCloud
 
