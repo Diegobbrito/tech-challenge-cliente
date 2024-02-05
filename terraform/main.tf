@@ -9,13 +9,13 @@ module "vpc" {
 }
 
 module "subnets" {
-  source = "terraform-aws=modules/subnet/aws"
+  source = "terraform-aws-modules/subnet/aws"
   availability_zones = ["us-east-1a", "us-east-1b","us-east-1c"]
   vpc_id = module.vpc.vpc_id
 }
 
 module "security_groups" {
-  source = "terraform-aws=modules/security-group/aws"
+  source = "terraform-aws-modules/security-group/aws"
   vpc_id = module.vpc.vpc_id
 }
 
@@ -38,7 +38,7 @@ terraform {
 }
 
 module "rds_mysql_cliente" {
-  source = "terraform-aws=modules/rds/aws"
+  source = "terraform-aws-modules/rds/aws"
   identifier = "mysql-cliente"
   engine = "mysql"
   engine_version = "8.0"
