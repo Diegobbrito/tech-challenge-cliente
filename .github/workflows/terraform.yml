@@ -1,13 +1,7 @@
-name: tf-k8s
+name: Criando infra com Terraform
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
-    paths:
-      - 'terraform/**'
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   CD:
