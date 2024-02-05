@@ -24,10 +24,7 @@ module "security_groups" {
   vpc_id = module.vpc.vpc_id
 }
 
-resource "aws_s3_bucket" "terraform_state" {
-  bucket = "lanchonete_dbb_terraform_state_bucket"
 
-}
 
 terraform {
   backend "s3" {
@@ -37,6 +34,10 @@ terraform {
     encrypt = true
     dynamodb_table = "terraform_lock"
   }
+}
+
+resource "aws_s3_bucket" "terraform_state" {
+  bucket = "lanchonete_dbb_terraform_state_bucket"
 }
 
 resource "aws_db_instance" "mysql_cliente" {
