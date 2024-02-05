@@ -24,7 +24,9 @@ module "security_groups" {
   vpc_id = module.vpc.vpc_id
 }
 
-
+output "db_security_group_id" {
+  value = "aws_security_group.this.id"
+}
 
 terraform {
   backend "s3" {
