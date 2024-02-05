@@ -31,6 +31,9 @@ Cria um cliente com cpf valido
 
 **Back-end:** Java, Springboot
 
+## Video
+Gravamos um video sobre a nossa terceira parte do projeto:
+- https://youtu.be/MrVDanTUrKI
 
 ## Autores
 
