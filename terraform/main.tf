@@ -28,7 +28,7 @@ module "security_groups" {
 
 terraform {
   backend "s3" {
-    bucket = "lanchonete_dbb_terraform_state_bucket"
+    bucket = "lanchonete-dbb-terraform-state-bucket"
     key = "enviroments/mysql-cliente/terraform.tfstate"
     region = "us-east-1"
     encrypt = true
@@ -37,7 +37,7 @@ terraform {
 }
 
 resource "aws_s3_bucket" "terraform_state" {
-  bucket = "lanchonete_dbb_terraform_state_bucket"
+  bucket = "lanchonete-dbb-terraform-state-bucket"
 }
 
 resource "aws_db_instance" "mysql_cliente" {
