@@ -31,7 +31,7 @@ resource "aws_s3_bucket" "terraform_state" {
 
 terraform {
   backend "s3" {
-    bucket = "aws_s3_bucket.terraform_state.bucket"
+    bucket = "lanchonete_dbb_terraform_state_bucket"
     key = "enviroments/mysql-cliente/terraform.tfstate"
     region = "us-east-1"
     encrypt = true
