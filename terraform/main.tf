@@ -8,10 +8,15 @@ module "vpc" {
   cidr = "10.0.0.0/16"
 }
 
-module "subnets" {
-  source = "terraform-aws-modules/subnet/aws"
-  availability_zones = ["us-east-1a", "us-east-1b","us-east-1c"]
+resource "aws_subnet" "subnet" {
+  count = 3
+  cidr_block = element(["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"], count.index)
+  availability_zone = element(["us-east-1a", "us-east-1b","us-east-1c"], count.index)
   vpc_id = module.vpc.vpc_id
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "subnet-${count.index + 1}"
+  }
 }
 
 module "security_groups" {
@@ -21,10 +26,7 @@ module "security_groups" {
 
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "lanchonete_dbb_terraform_state_bucket"
-  acl = "private"
-  versioning {
-    enabled = true
-  }
+
 }
 
 terraform {
@@ -37,13 +39,27 @@ terraform {
   }
 }
 
-module "rds_mysql_cliente" {
-  source = "terraform-aws-modules/rds/aws"
+resource "aws_db_instance" "mysql_cliente" {
   identifier = "mysql-cliente"
   engine = "mysql"
   engine_version = "8.0"
   instance_class = "db.t3.micro"
-  vpc_id = module.vpc.vpc_id
-  subnet_ids = [module.subnets.private_subnet_ids[1]]
-  security_group_ids = [module.security_groups.db_security_group_id]
+  allocated_storage = 20
+  storage_type = "gp2"
+  username = "admin"
+  password = "admin"
+  db_subnet_group_name = "subnet"
+  vpc_security_group_ids = [module.security_groups.db_security_group_id]
+  multi_az = false
+  publicly_accessible = true
+  subnet_group_name = "aws_db_subnet_group.subnet.name"
+  tags = {
+    Name = "mysql-cliente"
+  }
+}
+
+resource "aws_db_subnet_group" "subnet" {
+  name = "db-subnet-group"
+  description = "Subnet Group"
+  subnet_ids = [aws_subnet.subnet[*].id]
 }
