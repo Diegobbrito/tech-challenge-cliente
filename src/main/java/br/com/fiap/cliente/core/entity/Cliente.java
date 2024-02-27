@@ -10,6 +10,8 @@ public class Cliente {
     private final Email email;
     private final String nome;
 
+    private Boolean active;
+
     public Cliente(String cpf, String nome, String email) {
         this.cpf = new Cpf(cpf);
         this.email = new Email(email);
@@ -34,5 +36,13 @@ public class Cliente {
 
     public String getNome() {
         return nome;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }
