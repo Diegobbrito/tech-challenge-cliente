@@ -15,6 +15,7 @@ import br.com.fiap.cliente.api.dto.request.ClienteRequest;
 import br.com.fiap.cliente.api.dto.response.ClienteResponse;
 import br.com.fiap.cliente.api.handler.RestExceptionHandler;
 import br.com.fiap.cliente.core.usecase.cliente.ICriarCliente;
+import br.com.fiap.cliente.core.usecase.cliente.IGerenciarCliente;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,10 +41,14 @@ class ClienteControllerTest {
     private MockMvc mockMvc;
 
     @Mock
+
     private IBuscarCliente buscarClienteUseCase;
 
     @Mock
     private ICriarCliente criarClienteUseCase;
+
+    @Mock
+    private IGerenciarCliente gerenciarClienteUseCase;
     AutoCloseable openMocks;
 
     ClienteControllerTest() {
@@ -52,13 +57,13 @@ class ClienteControllerTest {
     @BeforeEach
     void setUp() {
         openMocks = MockitoAnnotations.openMocks(this);
-        ClienteController mensagemController = new ClienteController(buscarClienteUseCase,criarClienteUseCase);
-        mockMvc = MockMvcBuilders.standaloneSetup(mensagemController)
+        ClienteController clienteController = new ClienteController(buscarClienteUseCase,criarClienteUseCase, gerenciarClienteUseCase);
+        mockMvc = MockMvcBuilders.standaloneSetup(clienteController)
                 .setControllerAdvice(new RestExceptionHandler())
-//                .addFilter((request, response, chain) -> {
-//                    response.setCharacterEncoding("UTF-8");
-//                    chain.doFilter(request, response);
-//                }, "/*")
+                .addFilter((request, response, chain) -> {
+                    response.setCharacterEncoding("UTF-8");
+                    chain.doFilter(request, response);
+                }, "/*")
                 .build();
     }
 
@@ -110,7 +115,12 @@ class ClienteControllerTest {
         @Test
         void devePermitirRegistrarCliente() throws Exception {
 
-            var clienteRequest = new ClienteRequest("15212027020","Diego","diego.teste@teste.com");
+            var clienteRequest = new ClienteRequest(
+                    "Diego",
+                    "diego.teste@teste.com",
+                    "15212027020",
+                    "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                    "11999999999");
             var clienteResponse = new ClienteResponse("15212027020","Diego","diego.teste@teste.com");
             when(criarClienteUseCase.criar(any(ClienteRequest.class)))
                     .thenReturn(clienteResponse);
@@ -136,7 +146,5 @@ class ClienteControllerTest {
             throw new RuntimeException(e);
         }
     }
-
-
 
 }
