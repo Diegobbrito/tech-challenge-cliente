@@ -1,0 +1,38 @@
+name: Destruindo infra com Terraform
+
+on:
+  workflow_dispatch:
+#  schedule:
+#    - cron: 0 0 * * *
+
+jobs:
+  destroy-eks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obtendo o código
+        uses: actions/checkout@v3
+
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v2.0.3
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN}}
+
+
+      - name: Terraform Init
+        working-directory: ./terraform
+        run: terraform init
+
+      - name: Terraform Validate
+        working-directory: ./terraform
+        run: terraform validate
+
+      - name: Terraform Apply
+        working-directory: ./terraform
+        run: terraform destroy --auto-approve

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.1</version>
+		<version>3.2.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<repositories>
@@ -34,8 +34,9 @@
 		<java.version>17</java.version>
 		<project.version>1.0.0</project.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<junit.version>5.9.3</junit.version>
+		<junit.version>5.10.1</junit.version>
 		<aspectj.version>1.9.19</aspectj.version>
+		<jsonwebtoken.version>0.12.3</jsonwebtoken.version>
 		<sonar.organization>diegobbrito</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.coverage.jacoco.xmlReportPaths>
@@ -64,7 +65,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.1.0</version>
+			<version>2.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -73,23 +74,34 @@
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-api</artifactId>
-			<version>0.11.5</version>
+			<version>${jsonwebtoken.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-impl</artifactId>
-			<version>0.11.5</version>
+			<version>${jsonwebtoken.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
-			<version>0.11.5</version>
+			<version>${jsonwebtoken.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
 
 		<dependency>
@@ -118,25 +130,25 @@
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.24.2</version>
+			<version>3.25.2</version>
 		</dependency>
 		<!-- para testar controller -->
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>spring-mock-mvc</artifactId>
-			<version>5.3.0</version>
+			<version>5.3.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>json-schema-validator</artifactId>
-			<version>5.3.1</version>
+			<version>5.3.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>5.3.0</version>
+			<version>5.4.0</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -159,20 +171,25 @@
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-java</artifactId>
-			<version>7.13.0</version>
+			<version>7.15.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.cucumber</groupId>
 			<artifactId>cucumber-junit-platform-engine</artifactId>
-			<version>7.13.0</version>
+			<version>7.15.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite</artifactId>
-			<version>1.9.3</version>
+			<version>1.10.1</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.avro</groupId>
+			<artifactId>avro-tools</artifactId>
+			<version>1.9.2</version>
 		</dependency>
 
 	</dependencies>
@@ -180,15 +197,12 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.10.1</version>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+					<source>17</source>
+					<target>17</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -212,7 +226,7 @@
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.8.7</version>
+						<version>0.8.10</version>
 						<executions>
 							<execution>
 								<id>prepare-agent</id>
