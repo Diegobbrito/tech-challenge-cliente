@@ -37,6 +37,14 @@ public class ClienteRepository implements IClienteRepository {
         return ClienteAdapter.toCliente(entity);
     }
 
+    @Override
+    public void atualizar(Cliente cliente) {
+        final var clienteEntity = new ClienteEntity(cliente);
+        repository.save(clienteEntity);
+    }
+
+
+
 
     @Override
     public Cliente buscarClientePorCpf(String cpf) {

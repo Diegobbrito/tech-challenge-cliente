@@ -3,6 +3,7 @@ package br.com.fiap.cliente.core.usecase.cliente;
 import br.com.fiap.cliente.api.adapter.ClienteAdapter;
 import br.com.fiap.cliente.api.dto.response.ClienteResponse;
 import br.com.fiap.cliente.config.UseCase;
+import br.com.fiap.cliente.core.utils.CpfFormatadorUtil;
 import br.com.fiap.cliente.gateway.repository.IClienteRepository;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class BuscarClienteUseCase implements IBuscarCliente {
 
     @Override
     public ClienteResponse buscarClientePorCpf(String cpf) {
-        final var cpfFormatado = cpf.trim().replaceAll("\\.", "").replaceAll("-", "");
+        final var cpfFormatado =  CpfFormatadorUtil.formatarCpf(cpf);
         final var cliente = this.repository.buscarClientePorCpf(cpfFormatado);
 
         return ClienteAdapter.toResponse(cliente);
