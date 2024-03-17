@@ -9,13 +9,33 @@ public class Cliente {
     private final Cpf cpf;
     private final Email email;
     private final String nome;
+    private String endereco;
+    private String telefone;
 
     private Boolean active;
 
-    public Cliente(String cpf, String nome, String email) {
+    public Cliente(String cpf, String nome, String email, String endereco, String telefone) {
         this.cpf = new Cpf(cpf);
         this.email = new Email(email);
         this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 
     public Integer getId() {

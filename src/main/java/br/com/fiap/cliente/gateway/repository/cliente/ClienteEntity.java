@@ -17,6 +17,8 @@ public class ClienteEntity {
     private String nome;
     private String cpf;
     private String email;
+    private String endereco;
+    private String telefone;
     private Boolean active;
 
     public ClienteEntity(Cliente cliente) {
@@ -26,7 +28,8 @@ public class ClienteEntity {
         this.nome = cliente.getNome();
         if (cliente.getActive() == null)
             this.active = true;
-        this.active = cliente.getActive();
+        this.telefone = cliente.getTelefone();
+        this.endereco = cliente.getEndereco();
     }
 
     public void setId(Integer id) {
