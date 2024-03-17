@@ -3,19 +3,14 @@ package br.com.fiap.cliente.core.usecase.cliente;
 import br.com.fiap.cliente.api.dto.request.ClienteRequest;
 import br.com.fiap.cliente.api.dto.response.ClienteResponse;
 import br.com.fiap.cliente.core.entity.Cliente;
-import br.com.fiap.cliente.core.exception.ClienteCadastradoException;
 import br.com.fiap.cliente.core.exception.CpfInvalidoException;
 import br.com.fiap.cliente.core.exception.EmailInvalidoException;
-import br.com.fiap.cliente.gateway.repository.cliente.ClienteEntity;
 import br.com.fiap.cliente.gateway.repository.cliente.ClienteRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -46,8 +41,10 @@ class CriarClienteUseCaseTest {
     @Test
     void devePermitirRegistrarNovoCliente() {
         // Arrange
-        var clienteRequest = new ClienteRequest("Diego","diego.teste@teste.com","15212027020");
-        var clienteDomain = new Cliente("15212027020","Diego","diego.teste@teste.com");
+        var clienteRequest = new ClienteRequest("Diego","diego.teste@teste.com","15212027020", "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999");
+        var clienteDomain = new Cliente("15212027020","Diego","diego.teste@teste.com",  "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999");
 
         when(repository.salvar(any(Cliente.class))).thenReturn(clienteDomain);
         // Act
@@ -69,7 +66,8 @@ class CriarClienteUseCaseTest {
     @Test
     void deveRetornarExcessaoAoRegistrarClienteComCpfInvalido() {
 
-        assertThatThrownBy(() -> new Cliente("00000000000","Diego","teste@teste.com"))
+        assertThatThrownBy(() -> new Cliente("00000000000","Diego","teste@teste.com",  "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999"))
                 .isInstanceOf(CpfInvalidoException.class)
                 .hasMessage("Cpf inválido.");
 
@@ -78,7 +76,8 @@ class CriarClienteUseCaseTest {
     @Test
     void deveRetornarExcessaoAoRegistrarClienteComEmailInvalido() {
 
-        assertThatThrownBy(() -> new Cliente("15212027020","Diego","teste.com"))
+        assertThatThrownBy(() -> new Cliente("15212027020","Diego","teste.com",  "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999"))
                 .isInstanceOf(EmailInvalidoException.class)
                 .hasMessage("Email inválido.");
 

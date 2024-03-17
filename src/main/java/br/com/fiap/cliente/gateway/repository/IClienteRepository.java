@@ -8,5 +8,7 @@ public interface IClienteRepository {
     List<Cliente> buscarTodos();
     Cliente salvar(Cliente produto);
 
+    void atualizar(Cliente cliente);
+
     Cliente buscarClientePorCpf(String cpf);
 }

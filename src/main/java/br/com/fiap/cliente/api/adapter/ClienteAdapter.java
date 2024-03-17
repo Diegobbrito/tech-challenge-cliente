@@ -6,6 +6,8 @@ import br.com.fiap.cliente.gateway.repository.cliente.ClienteEntity;
 
 public class ClienteAdapter {
 
+    private ClienteAdapter(){}
+
     public static ClienteResponse toResponse(Cliente cliente) {
         return new ClienteResponse(
                 cliente.getCpf().getValor(),
@@ -14,7 +16,12 @@ public class ClienteAdapter {
     }
 
     public static Cliente toCliente(ClienteEntity clienteEntity){
-        final var cliente = new Cliente(clienteEntity.getCpf(), clienteEntity.getNome(), clienteEntity.getEmail());
+        final var cliente = new Cliente(
+                clienteEntity.getCpf(),
+                clienteEntity.getNome(),
+                clienteEntity.getEmail(),
+                clienteEntity.getEndereco(),
+                clienteEntity.getTelefone());
         cliente.setId(clienteEntity.getId());
         return cliente;
     }

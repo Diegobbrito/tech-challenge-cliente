@@ -21,7 +21,8 @@ public class DefinicaoPassos {
 
     @Quando("requisitar o registro de um novo cliente com email invalido")
     public void requisitarRegistroDeNovoClienteComEmailInvalido() {
-        var clienteRequest = new ClienteRequest("Diego","teste.com","002.546.450-70");
+        var clienteRequest = new ClienteRequest("Diego","teste.com","002.546.450-70","R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999");
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(clienteRequest)
@@ -35,7 +36,8 @@ public class DefinicaoPassos {
 
     @Quando("requisitar o registro de um novo cliente com cpf invalido")
     public void requisitarRegistroDeNovoClienteComCpfInvalido() {
-        var clienteRequest = new ClienteRequest("Teste","teste@teste.com","00000000000");
+        var clienteRequest = new ClienteRequest("Teste","teste@teste.com","00000000000","R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999");
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(clienteRequest)
@@ -49,7 +51,8 @@ public class DefinicaoPassos {
 
     @Quando("requisitar o registro de um novo cliente")
     public void requisitarRegistroDeNovoCliente() {
-        var clienteRequest = new ClienteRequest("Diego","diego.teste@teste.com","15212027020");
+        var clienteRequest = new ClienteRequest("Diego","diego.teste@teste.com","15212027020","R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999");
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(clienteRequest)
@@ -64,7 +67,8 @@ public class DefinicaoPassos {
     }
     @Quando("requisitar o registro de um novo cliente já existente")
     public void requisitarRegistroDeNovoClienteExistente() {
-        var clienteRequest = new ClienteRequest("Diego","diego.teste@teste.com","15212027020");
+        var clienteRequest = new ClienteRequest("Diego","diego.teste@teste.com","15212027020","R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999");
         response = given()
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(clienteRequest)

@@ -16,7 +16,12 @@ public class CriarClienteUseCase implements ICriarCliente {
 
     @Override
     public ClienteResponse criar(ClienteRequest request) {
-        final var cliente = new Cliente(request.cpf(), request.nome(), request.email());
+        final var cliente = new Cliente(
+                request.cpf(),
+                request.nome(),
+                request.email(),
+                request.endereco(),
+                request.telefone());
         return ClienteAdapter.toResponse(repository.salvar(cliente));
     }
 }

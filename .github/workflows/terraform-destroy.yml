@@ -2,11 +2,11 @@ name: Destruindo infra com Terraform
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 0 0 * * *
+#  schedule:
+#    - cron: 0 0 * * *
 
 jobs:
-  destroy-aks:
+  destroy-eks:
     runs-on: ubuntu-latest
 
     steps:
