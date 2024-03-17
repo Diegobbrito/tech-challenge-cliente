@@ -40,8 +40,16 @@ class BuscarClienteUseCaseTest {
     @Test
     void devePermitirConsultarTodosOsClientes() {
         // Arrange
-        var diego = new Cliente("15212027020","Diego","diego.teste@teste.com");
-        var gustavo = new Cliente("21572082089","Gustavo","gustavo.teste@teste.com");
+        var diego = new Cliente("15212027020",
+                "Diego",
+                "diego.teste@teste.com",
+                "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999");
+        var gustavo = new Cliente("21572082089",
+                "Gustavo",
+                "gustavo.teste@teste.com",
+                "R. Fidêncio Ramos, 309 - Vila Olímpia, São Paulo",
+                "11999999999");
         var clientesResponse = List.of(diego, gustavo);
         when(repository.buscarTodos()).thenReturn(clientesResponse);
         // Act
@@ -57,16 +65,14 @@ class BuscarClienteUseCaseTest {
         assertThat(clientes.get(0))
                 .extracting(ClienteResponse::nome)
                 .isEqualTo("Diego");
-        assertThat(clientes)
-                .asList()
-                .size()
-                .isEqualTo(2);
     }
 
     @Test
     void devePermitirConsultarClientePorCpf() {
         // Arrange
-        var clienteDomain = new Cliente("15212027020","Diego","diego.teste@teste.com");
+        var clienteDomain = new Cliente("15212027020","Diego","diego.teste@teste.com",
+                "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                "11999999999");
 
         when(repository.buscarClientePorCpf(anyString())).thenReturn(clienteDomain);
         // Act

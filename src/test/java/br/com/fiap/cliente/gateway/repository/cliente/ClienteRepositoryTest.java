@@ -50,7 +50,8 @@ class ClienteRepositoryTest {
             Cliente cliente = new Cliente(
                     "28655919055",
                     "Diego",
-                    "diego.teste@teste.com");
+                    "diego.teste@teste.com",  "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                    "11999999999");
             cliente.setId(1);
             var clientesMock = new ClienteEntity(cliente);
             when(jpaRepository.findAllByActiveIsTrue()).thenReturn(List.of(clientesMock));
@@ -79,7 +80,8 @@ class ClienteRepositoryTest {
             Cliente cliente = new Cliente(
                     "28655919055",
                     "Diego",
-                    "diego.teste@teste.com");
+                    "diego.teste@teste.com", "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                    "11999999999");
             cliente.setId(1);
             var clientesMock = new ClienteEntity(cliente);
             when(jpaRepository.findByCpfAndActiveIsTrue(anyString())).thenReturn(Optional.of(clientesMock));
@@ -120,7 +122,8 @@ class ClienteRepositoryTest {
         @Test
         void devePermitirRegistrarCliente() {
             // Arrange
-            var cliente = new Cliente("15212027020","Diego","diego.teste@teste.com");
+            var cliente = new Cliente("15212027020","Diego","diego.teste@teste.com",  "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                    "11999999999");
             cliente.setId(1);
             var clienteEntity = new ClienteEntity(cliente);
             when(jpaRepository.findByCpfAndActiveIsTrue(anyString())).thenReturn(Optional.empty());
@@ -150,7 +153,8 @@ class ClienteRepositoryTest {
         @Test
         void deveRetornarExcessaoAoRegistrarClienteExistente() {
             // Arrange
-            var cliente = new Cliente("15212027020","Diego","diego.teste@teste.com");
+            var cliente = new Cliente("15212027020","Diego","diego.teste@teste.com",  "R. Fidêncio Ramos, 308 - Vila Olímpia, São Paulo",
+                    "11999999999");
             cliente.setId(1);
             var clienteEntity = new ClienteEntity(cliente);
             when(jpaRepository.findByCpfAndActiveIsTrue(anyString())).thenReturn(Optional.of(clienteEntity));
