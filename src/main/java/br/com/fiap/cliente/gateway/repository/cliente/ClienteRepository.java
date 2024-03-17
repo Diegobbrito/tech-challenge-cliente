@@ -8,7 +8,6 @@ import br.com.fiap.cliente.gateway.repository.IClienteRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class ClienteRepository implements IClienteRepository {
@@ -22,7 +21,7 @@ public class ClienteRepository implements IClienteRepository {
     @Override
     public List<Cliente> buscarTodos() {
         final var clientes = repository.findAllByActiveIsTrue();
-        return clientes.stream().map(ClienteAdapter::toCliente).collect(Collectors.toList());
+        return clientes.stream().map(ClienteAdapter::toCliente).toList();
     }
 
     @Override
@@ -42,9 +41,6 @@ public class ClienteRepository implements IClienteRepository {
         final var clienteEntity = new ClienteEntity(cliente);
         repository.save(clienteEntity);
     }
-
-
-
 
     @Override
     public Cliente buscarClientePorCpf(String cpf) {
