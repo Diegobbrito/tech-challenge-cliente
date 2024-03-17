@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmailDataProvider {
-
     private final JavaMailSender emailSender;
 
     public EmailDataProvider(JavaMailSender emailSender) {

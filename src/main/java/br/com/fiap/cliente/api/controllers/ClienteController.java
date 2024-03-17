@@ -22,7 +22,6 @@ public class ClienteController {
 
     private final IBuscarCliente buscarClienteUseCase;
     private final ICriarCliente criarClienteUseCase;
-
     private final IGerenciarCliente gerenciarClienteUseCase;
     public ClienteController(IBuscarCliente buscarClienteUseCase, ICriarCliente criarClienteUseCase, IGerenciarCliente gerenciarClienteUseCase) {
         this.buscarClienteUseCase = buscarClienteUseCase;

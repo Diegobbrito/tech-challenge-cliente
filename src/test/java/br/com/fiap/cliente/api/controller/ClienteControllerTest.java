@@ -34,7 +34,6 @@ import br.com.fiap.cliente.core.usecase.cliente.IBuscarCliente;
 
 import java.util.List;
 
-@SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 class ClienteControllerTest {
