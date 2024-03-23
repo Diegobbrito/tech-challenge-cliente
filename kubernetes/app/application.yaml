@@ -1,0 +1,104 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cliente
+  labels:
+    app: cliente
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cliente
+  template:
+    metadata:
+      labels:
+        app: cliente
+    spec:
+      containers:
+        - name: cliente
+          image: diegobbrito17/clientes:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_database
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_user
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_password
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_port
+            - name: DB_SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_server
+            - name: DB_PASSWORD_ROOT
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_root_password
+            - name: BACK_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: back_port
+            - name: MAIL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: mail_user
+            - name: MAIL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: mail_password
+            - name: MAIL_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: mail_host
+            - name: MAIL_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: mail_port
+            - name: RABBITMQ_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: rabbitmq_host
+            - name: RABBITMQ_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: rabbitmq_port
+            - name: RABBITMQ_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: rabbitmq_user
+            - name: RABBITMQ_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: rabbitmq_password
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: secret

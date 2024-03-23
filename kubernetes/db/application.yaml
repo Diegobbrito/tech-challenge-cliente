@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clientedb
+  labels:
+    app: clientedb
+    tier: database
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clientedb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: clientedb
+        tier: database
+    spec:
+      containers:
+        - name:  clientedb
+          image: diegobbrito17/clientes-db:latest
+          ports:
+            - containerPort: 3306
+              name: clientedb
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_root_password
+            - name: MYSQL_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_database
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secret
+                  key: db_password
+          volumeMounts:
+            - name: db-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: db-persistent-storage
+          persistentVolumeClaim:
+            claimName: db-pvc
